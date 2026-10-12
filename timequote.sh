@@ -9,5 +9,5 @@ quotes=(
 )
 
 random_index=$((RANDOM % ${#quotes[@]}))
-echo "${quotes[$random_index]}"
+printf "%s\n" "${quotes[$random_index]}"
 echo "— iamridwansec"
