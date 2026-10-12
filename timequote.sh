@@ -1,4 +1,12 @@
 #!/bin/bash
+if [ "$1" = "--help" ]; then
+    printf "%s\n" "Usage: timequote.sh [option]"
+    printf "%s\n" ""
+    printf "%s\n" "Options:"
+    printf "%s\n" "  --help    Show this help message"
+    exit 0
+fi
+
 
 quotes=(
     "Time is always moving."
@@ -8,6 +16,28 @@ quotes=(
     "Time reveals what patience was building."
 )
 
-random_index=$((RANDOM % ${#quotes[@]}))
-printf "%s\n" "${quotes[$random_index]}"
-echo "— iamridwansec"
+if [ "$1" = "--count" ]; then
+    count=$2
+
+    if [ "$count" -gt 3 ]; then
+        printf "%s\n" "Maximum count is 3."
+        exit 1
+    fi
+
+    for ((i=0; i<count; i++)); do
+        random_index=$((RANDOM % ${#quotes[@]}))
+        quote="${quotes[$random_index]}"
+
+        separator=""
+        for ((j=0; j<${#quote}; j++)); do
+            separator="${separator}-"
+        done
+
+        printf "%s\n" "$separator"
+        printf "%s\n" "$quote"
+        printf "%s\n" "~ iamridwansec"
+        printf "%s\n" "$separator"
+    done
+
+    exit 0
+fi
