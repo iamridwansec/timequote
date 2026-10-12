@@ -147,6 +147,11 @@ print_quote() {
 }
 
 if [ "$1" = "--search" ]; then
+    if [ -z "$2" ]; then
+        printf "%s\n" "Please provide a search term."
+        exit 1
+    fi
+
     search_term=$2
     matches=()
 
@@ -171,6 +176,11 @@ if [ "$1" = "--search" ]; then
     exit 0
 fi
 
+if [ -n "$1" ]; then
+    printf "Unknown option: %s\n" "$1"
+    printf "%s\n" "Use --help to see available options."
+    exit 1
+fi
 # Default: show a random time quote
 random_index=$((RANDOM % ${#time_quotes[@]}))
 quote="${time_quotes[$random_index]}"
