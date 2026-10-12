@@ -5,6 +5,7 @@ if [ "$1" = "--help" ]; then
     printf "%s\n" ""
     printf "%s\n" "Options:"
     printf "%s\n" "  --help             Show this help message"
+    printf "%s\n" "  --random           Show a random time quote"
     printf "%s\n" "  --search TERM      Search quotes by theme or text"
     exit 0
 fi
@@ -145,6 +146,14 @@ print_quote() {
     printf "%*s\n" "$max_length" "~ iamridwansec"
     printf "%s\n" "$separator"
 }
+
+if [ "$1" = "--random" ]; then
+    random_index=$((RANDOM % ${#time_quotes[@]}))
+    quote="${time_quotes[$random_index]}"
+
+    print_quote "$quote"
+    exit 0
+fi
 
 if [ "$1" = "--search" ]; then
     if [ -z "$2" ]; then
